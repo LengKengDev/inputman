@@ -1,0 +1,37 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "jasmine": true,
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "extends": [
+    "standard",
+    "eslint:recommended",
+    "plugin:vue/recommended"
+  ],
+  "rules": {
+    "indent": [
+      "error",
+      2
+    ],
+    "semi": [2, "always"],
+    "linebreak-style": [
+      "off",
+      "unix"
+    ],
+    "no-unused-vars": [
+      1,
+      {"vars": "all", "args": "after-used"}
+    ]
+  }
+}
