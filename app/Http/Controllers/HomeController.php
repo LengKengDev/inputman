@@ -13,7 +13,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct(UserRepository $repositorygit)
+    public function __construct(UserRepository $repository)
     {
         $this->middleware('auth');
     }
