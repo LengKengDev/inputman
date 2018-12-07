@@ -7,6 +7,7 @@ use Prettus\Repository\Traits\TransformableTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 /**
  * Class User.
  *
@@ -33,5 +34,4 @@ class User extends Authenticatable implements Transformable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
 }
