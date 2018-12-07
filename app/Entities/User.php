@@ -1,14 +1,20 @@
 <?php
 
-namespace App;
+namespace App\Entities;
 
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
-class User extends Authenticatable
+/**
+ * Class User.
+ *
+ * @package namespace App\Entities;
+ */
+class User extends Authenticatable implements Transformable
 {
-    use Notifiable;
+    use TransformableTrait, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -27,4 +33,5 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
 }
