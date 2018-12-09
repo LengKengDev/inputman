@@ -13,6 +13,7 @@ use App\Http\Requests\QuestionUpdateRequest;
 use App\Repositories\QuestionRepository;
 use App\Validators\QuestionValidator;
 use App\Http\Controllers\Controller;
+
 /**
  * Class QuestionsController.
  *
@@ -54,7 +55,6 @@ class QuestionsController extends Controller
             ->orderBy('id', 'desc')->paginate(15);
 
         if (request()->wantsJson()) {
-
             return response()->json([
                 'data' => $questions,
             ]);
@@ -83,7 +83,6 @@ class QuestionsController extends Controller
     public function store(QuestionCreateRequest $request)
     {
         try {
-
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
             $question = $this->repository->create($request->all());
@@ -94,7 +93,6 @@ class QuestionsController extends Controller
             ];
 
             if ($request->wantsJson()) {
-
                 return response()->json($response);
             }
 
@@ -121,7 +119,6 @@ class QuestionsController extends Controller
     public function show(Question $question)
     {
         if (request()->wantsJson()) {
-
             return response()->json([
                 'data' => $question,
             ]);
@@ -156,7 +153,6 @@ class QuestionsController extends Controller
     public function update(QuestionUpdateRequest $request, Question $question)
     {
         try {
-
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
             $question = $this->repository->update($request->all(), $question->id);
@@ -167,15 +163,12 @@ class QuestionsController extends Controller
             ];
 
             if ($request->wantsJson()) {
-
                 return response()->json($response);
             }
 
             return redirect()->back()->with('message', $response['message']);
         } catch (ValidatorException $e) {
-
             if ($request->wantsJson()) {
-
                 return response()->json([
                     'error'   => true,
                     'message' => $e->getMessageBag()
@@ -199,7 +192,6 @@ class QuestionsController extends Controller
         $deleted = $question->delete();
 
         if (request()->wantsJson()) {
-
             return response()->json([
                 'message' => 'Question deleted.',
                 'deleted' => $deleted,

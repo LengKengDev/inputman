@@ -17,7 +17,9 @@
         "lord/laroute": "^2.4",
         "prettus/l5-repository": "^2.6",
         "robclancy/presenter": "^1.4",
-        "sofa/eloquence": "^5.6"
+        "sofa/eloquence": "^5.6",
+        "spatie/laravel-permission": "^2.28",
+        "themsaid/laravel-mail-preview": "^2.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

@@ -13,7 +13,7 @@
 
 Auth::routes();
 
-Route::namespace('Web')->name('web.')->group(function () {
+Route::namespace('Web')->name('web.')->middleware(['auth'])->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::resource('question_types', 'QuestionTypesController');
