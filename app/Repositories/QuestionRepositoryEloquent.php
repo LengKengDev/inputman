@@ -49,5 +49,4 @@ class QuestionRepositoryEloquent extends BaseRepository implements QuestionRepos
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
 }

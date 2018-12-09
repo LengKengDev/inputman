@@ -5,7 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
-        <a class="navbar-brand pt-0" href="./index.html">
+        <a class="navbar-brand pt-0" href="{{ route('web.home') }}">
             <img src="/images/brand/blue.png" class="navbar-brand-img" alt="...">
         </a>
         <!-- User -->
@@ -16,7 +16,7 @@
             <div class="navbar-collapse-header d-md-none">
                 <div class="row">
                     <div class="col-6 collapse-brand">
-                        <a href="./index.html">
+                        <a href="{{ route('web.home') }}">
                             <img src="/images/brand/blue.png">
                         </a>
                     </div>
