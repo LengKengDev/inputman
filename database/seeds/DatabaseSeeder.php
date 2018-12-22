@@ -11,9 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(QuestionTypesTableSeeder::class);
-        $this->call(QuestionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        if(env('APP_ENV') != 'production') {
+            $this->call(QuestionTypesTableSeeder::class);
+            $this->call(QuestionsTableSeeder::class);
+        }
     }
 }
