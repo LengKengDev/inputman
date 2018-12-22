@@ -2,43 +2,41 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Entities\User;
+use App\Entities\Level;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\UserCreateRequest;
-use App\Http\Requests\UserUpdateRequest;
-use App\Repositories\UserRepository;
-use App\Validators\UserValidator;
-use App\Http\Controllers\Controller;
-use Spatie\Activitylog\Models\Activity;
+use App\Http\Requests\LevelCreateRequest;
+use App\Http\Requests\LevelUpdateRequest;
+use App\Repositories\LevelRepository;
+use App\Validators\LevelValidator;
 
 /**
- * Class UsersController.
+ * Class LevelsController.
  *
  * @package namespace App\Http\Controllers;
  */
-class UsersController extends Controller
+class LevelsController extends Controller
 {
     /**
-     * @var UserRepository
+     * @var LevelRepository
      */
     protected $repository;
 
     /**
-     * @var UserValidator
+     * @var LevelValidator
      */
     protected $validator;
 
     /**
-     * UsersController constructor.
+     * LevelsController constructor.
      *
-     * @param UserRepository $repository
-     * @param UserValidator $validator
+     * @param LevelRepository $repository
+     * @param LevelValidator $validator
      */
-    public function __construct(UserRepository $repository, UserValidator $validator)
+    public function __construct(LevelRepository $repository, LevelValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -52,41 +50,36 @@ class UsersController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $users = $this->repository->with('roles')->orderBy('id', 'desc')->paginate(15);
+        $levels = $this->repository->all();
 
         if (request()->wantsJson()) {
             return response()->json([
-                'data' => $users,
+                'data' => $levels,
             ]);
         }
 
-        return view('users.index', compact('users'));
+        return view('levels.index', compact('levels'));
     }
 
-
-    public function create()
-    {
-        return view('users.create');
-    }
     /**
      * Store a newly created resource in storage.
      *
-     * @param  UserCreateRequest $request
+     * @param  LevelCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(UserCreateRequest $request)
+    public function store(LevelCreateRequest $request)
     {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $user = $this->repository->create($request->all());
+            $level = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'User created.',
-                'data'    => $user->toArray(),
+                'message' => 'Level created.',
+                'data'    => $level->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -102,27 +95,8 @@ class UsersController extends Controller
                 ]);
             }
 
-            return redirect()->back()->with('message', $e->getMessageBag())->withInput();
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        if (request()->wantsJson()) {
-            return response()->json([
-                'data' => $user,
-            ]);
-        }
-        $activities = Activity::where('causer_type', User::class)->where('causer_id', $user->id)
-            ->orderBy('created_at', 'desc')->paginate(10);
-        return view('users.show', compact('user', 'activities'));
     }
 
     /**
@@ -132,31 +106,31 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Level $level)
     {
-        return view('users.edit', compact('user'));
+        return view('levels.edit', compact('level'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UserUpdateRequest $request
+     * @param  LevelUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(UserUpdateRequest $request, User $user)
+    public function update(LevelUpdateRequest $request, Level $level)
     {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $user = $this->repository->update($request->all(), $user->id);
+            $level = $this->repository->update($request->all(), $level->id);
 
             $response = [
-                'message' => 'User updated.',
-                'data'    => $user->toArray(),
+                'message' => 'Level updated.',
+                'data'    => $level->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -184,17 +158,16 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Level $level)
     {
-        $deleted = $this->repository->delete($user->id);
-
+        $this->repository->delete($level->id);
         if (request()->wantsJson()) {
             return response()->json([
-                'message' => 'User deleted.',
+                'message' => 'Level deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'User deleted.');
+        return redirect()->back()->with('message', 'Level deleted.');
     }
 }

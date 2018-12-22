@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Entities\Question::class, function (Faker $faker) {
     return [
         'title' => $faker->paragraphs(3, true),
-        'level' => $faker->numberBetween(0, 4),
+        'level_id' => $faker->numberBetween(1, 6),
         'question_type_id' => $faker->numberBetween(1, 10),
         'answers' =>[
             ['content' => $faker->realText(50), 'is_correct' => true],

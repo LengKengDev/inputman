@@ -11,14 +11,19 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{ route('web.levels.index' )}}">
+                <i class="ni ni-album-2 text-blue"></i> Quản lý nhãn câu hỏi
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('web.question_types.index' )}}">
-                <i class="ni ni-planet text-blue"></i> Dạng câu hỏi
+                <i class="ni ni-planet text-blue"></i> Quản lý dạng câu hỏi
             </a>
         </li>
     @endhasanyrole
     <li class="nav-item">
         <a class="nav-link" href="{{ route('web.questions.index') }}">
-            <i class="ni ni-shop text-orange"></i> Câu hỏi
+            <i class="ni ni-shop text-orange"></i> Quản lý câu hỏi
         </a>
     </li>
     {{--<li class="nav-item">--}}

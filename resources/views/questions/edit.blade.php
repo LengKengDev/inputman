@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="form-group col-3">
                                         <label for="description">Level:</label>
-                                        {{ Form::select('level', [0 => 'Dễ', 1 => 'Trung bình', 2 => 'Khó', 3 => 'Rất khó', 4 => 'Chưa xếp loại'], $question->level, ['placeholder' => 'Pick a level...', 'class' => 'form-control form-control-alternative']) }}
+                                        {{ Form::select('level_id', \App\Entities\Level::all(['id', 'name'])->pluck('name', 'id')->toArray(), $question->level->id, ['placeholder' => 'Pick a level...', 'class' => 'form-control form-control-alternative']) }}
                                     </div>
                                 </div>
                                 <div class="form-group">

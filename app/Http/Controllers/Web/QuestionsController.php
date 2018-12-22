@@ -53,7 +53,7 @@ class QuestionsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $questions = $this->repository->with('questionType')
+        $questions = $this->repository->with(['questionType', 'level'])
             ->orderBy('id', 'desc')->paginate(15);
 
         if (request()->wantsJson()) {

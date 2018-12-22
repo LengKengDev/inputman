@@ -22,7 +22,7 @@ class Question extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = ['title', 'answers', 'question_type_id', 'level'];
+    protected $fillable = ['title', 'answers', 'question_type_id', 'level_id'];
 
     protected static $recordEvents = ['created', 'updated'];
 
@@ -35,9 +35,14 @@ class Question extends Model implements Transformable
         'answers' => 'array',
     ];
 
+    public function level()
+    {
+        return $this->belongsTo(Level::class)->withTrashed();
+    }
+
     public function questionType()
     {
-        return $this->belongsTo(QuestionType::class);
+        return $this->belongsTo(QuestionType::class)->withTrashed();
     }
 
     public function getDescriptionForEvent(string $eventName): string
