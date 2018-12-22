@@ -53,7 +53,7 @@ class QuestionsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $questions = $this->repository->with(['questionType', 'level'])
+        $questions = $this->repository->with(['questionTypes', 'level'])
             ->orderBy('id', 'desc')->paginate(15);
 
         if (request()->wantsJson()) {
@@ -87,8 +87,12 @@ class QuestionsController extends Controller
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $question = $this->repository->create($request->all());
-
+            $question = $this->repository->create($request->except(['question_types']));
+            $question->questionTypes()
+                ->sync($request->input(
+                    'question_types',
+                    $question->questionTypes->pluck('id')->toArray()
+                ));
             $response = [
                 'message' => 'Question created.',
                 'data'    => $question->toArray(),
@@ -158,8 +162,12 @@ class QuestionsController extends Controller
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $question = $this->repository->update($request->all(), $question->id);
-
+            $question = $this->repository->update($request->except(['question_types']), $question->id);
+            $question->questionTypes()
+                ->sync($request->input(
+                    'question_types',
+                    $question->questionTypes->pluck('id')->toArray()
+                ));
             $response = [
                 'message' => 'Question updated.',
                 'data'    => $question->toArray(),

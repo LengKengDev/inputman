@@ -51,15 +51,22 @@
                             @foreach($questions as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ str_limit($item->title, 80) }}</td>
-                                    <td><span class="badge badge-primary">{{ $item->questionType->name }}</span></td>
+                                    <td>{{ str_limit($item->title, 60) }}</td>
+                                    <td>
+                                        @foreach($item->questionTypes as $type)
+                                            <span class="badge badge-pill badge-{{array_random(['info', 'success', 'warning', 'primary', 'danger'])}}"
+                                                  data-toggle="tooltip" data-placement="top" title="{{ $type->name }}">
+                                                {{ str_limit($type->name, 10) }}
+                                            </span>
+                                        @endforeach
+                                    </td>
                                     <td>
                                         <span class="badge badge-info">{{ $item->level->name }}</span>
                                     </td>
                                     <td>{{ $item->updated_at->diffForHumans() }}</td>
                                     <td>
-                                        {{ link_to_route('web.questions.edit', 'Edit', $item, ['class' => 'btn btn-primary']) }}
-                                        {{ link_to_route('web.questions.destroy', 'Delete', $item, ['class' => 'btn btn-danger btn-question-destroy', 'data' => $item->id]) }}
+                                        {{ link_to_route('web.questions.edit', 'Edit', $item, ['class' => 'btn btn-primary btn-sm']) }}
+                                        {{ link_to_route('web.questions.destroy', 'Delete', $item, ['class' => 'btn btn-danger btn-question-destroy btn-sm', 'data' => $item->id]) }}
                                         {!! Form::open(['route' => ['web.questions.destroy', $item->id], 'method' => 'DELETE', 'class' => "hidden destroy-{$item->id}"]) !!}
                                         {!! Form::close() !!}
                                     </td>
