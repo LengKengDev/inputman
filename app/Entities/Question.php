@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class Question.
@@ -14,7 +15,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  */
 class Question extends Model implements Transformable
 {
-    use TransformableTrait, SoftDeletes;
+    use TransformableTrait, SoftDeletes, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +23,8 @@ class Question extends Model implements Transformable
      * @var array
      */
     protected $fillable = ['title', 'answers', 'question_type_id', 'level'];
+
+    protected static $recordEvents = ['created', 'updated'];
 
     /**
      * The attributes that should be cast to native types.
@@ -35,5 +38,10 @@ class Question extends Model implements Transformable
     public function questionType()
     {
         return $this->belongsTo(QuestionType::class);
+    }
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "This question has been {$eventName} by :causer.name (:causer.email)";
     }
 }

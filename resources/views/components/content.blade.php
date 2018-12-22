@@ -72,6 +72,24 @@
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--7">
+        @if(session("message"))
+            <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+                <span class="alert-inner--icon"><i class="ni ni-like-2"></i></span>
+                <span class="alert-inner--text"><strong>Message!</strong> {{ session("message") }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true" class="text-dark">&times;</span>
+                </button>
+            </div>
+        @endif
+        @if($errors->default->count())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span class="alert-inner--icon"><i class="ni ni-like-2"></i></span>
+                <span class="alert-inner--text"><strong>Error!</strong> {{ $errors->first() }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true" class="text-dark">&times;</span>
+                </button>
+            </div>
+        @endif
         @yield('content-body')
         @include('components.footer')
     </div>

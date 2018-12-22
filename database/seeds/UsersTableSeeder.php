@@ -21,6 +21,8 @@ class UsersTableSeeder extends Seeder
 
         $admin->assignRole('admin');
 
-        factory(User::class, 10)->create();
+        if(env('APP_ENV') != 'production') {
+            factory(User::class, 10)->create();
+        }
     }
 }

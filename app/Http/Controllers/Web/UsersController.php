@@ -2,44 +2,42 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Entities\Question;
+use App\Entities\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Kamaln7\Toastr\Toastr;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\QuestionCreateRequest;
-use App\Http\Requests\QuestionUpdateRequest;
-use App\Repositories\QuestionRepository;
-use App\Validators\QuestionValidator;
+use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
+use App\Repositories\UserRepository;
+use App\Validators\UserValidator;
 use App\Http\Controllers\Controller;
-use Spatie\Activitylog\Models\Activity;
 
 /**
- * Class QuestionsController.
+ * Class UsersController.
  *
  * @package namespace App\Http\Controllers;
  */
-class QuestionsController extends Controller
+class UsersController extends Controller
 {
     /**
-     * @var QuestionRepository
+     * @var UserRepository
      */
     protected $repository;
 
     /**
-     * @var QuestionValidator
+     * @var UserValidator
      */
     protected $validator;
 
     /**
-     * QuestionsController constructor.
+     * UsersController constructor.
      *
-     * @param QuestionRepository $repository
-     * @param QuestionValidator $validator
+     * @param UserRepository $repository
+     * @param UserValidator $validator
      */
-    public function __construct(QuestionRepository $repository, QuestionValidator $validator)
+    public function __construct(UserRepository $repository, UserValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -53,45 +51,41 @@ class QuestionsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $questions = $this->repository->with('questionType')
-            ->orderBy('id', 'desc')->paginate(15);
+        $users = $this->repository->with('roles')->orderBy('id', 'desc')->paginate(15);
 
         if (request()->wantsJson()) {
             return response()->json([
-                'data' => $questions,
+                'data' => $users,
             ]);
         }
 
-        return view('questions.index', compact('questions'));
+        return view('users.index', compact('users'));
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
+
     public function create()
     {
-        return view('questions.create');
+        return view('users.create');
     }
-
     /**
      * Store a newly created resource in storage.
      *
-     * @param  QuestionCreateRequest $request
+     * @param  UserCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(QuestionCreateRequest $request)
+    public function store(UserCreateRequest $request)
     {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $question = $this->repository->create($request->all());
+            $user = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Question created.',
-                'data'    => $question->toArray(),
+                'message' => 'User created.',
+                'data'    => $user->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -107,7 +101,7 @@ class QuestionsController extends Controller
                 ]);
             }
 
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+            return redirect()->back()->with('message', $e->getMessageBag())->withInput();
         }
     }
 
@@ -118,15 +112,15 @@ class QuestionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Question $question)
+    public function show(User $user)
     {
         if (request()->wantsJson()) {
             return response()->json([
-                'data' => $question,
+                'data' => $user,
             ]);
         }
 
-        return view('questions.show', compact('question'));
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -136,39 +130,37 @@ class QuestionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Question $question)
+    public function edit(User $user)
     {
-        $activities = Activity::where('subject_type', "App\Entities\Question")
-            ->where('subject_id', $question->id)->orderBy('created_at', 'desc')->take(10)->get();
-        return view('questions.edit', compact('question', 'activities'));
+        return view('users.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  QuestionUpdateRequest $request
+     * @param  UserUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(QuestionUpdateRequest $request, Question $question)
+    public function update(UserUpdateRequest $request, User $user)
     {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $question = $this->repository->update($request->all(), $question->id);
+            $user = $this->repository->update($request->all(), $user->id);
 
             $response = [
-                'message' => 'Question updated.',
-                'data'    => $question->toArray(),
+                'message' => 'User updated.',
+                'data'    => $user->toArray(),
             ];
 
             if ($request->wantsJson()) {
                 return response()->json($response);
             }
-            
+
             return redirect()->back()->with('message', $response['message']);
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
@@ -190,17 +182,17 @@ class QuestionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Question $question)
+    public function destroy(User $user)
     {
-        $deleted = $question->delete();
+        $deleted = $this->repository->delete($user->id);
 
         if (request()->wantsJson()) {
             return response()->json([
-                'message' => 'Question deleted.',
+                'message' => 'User deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Question deleted.');
+        return redirect()->back()->with('message', 'User deleted.');
     }
 }

@@ -56,21 +56,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center active">
-                            History
-                        </li>
-                        @foreach($activities as $activity)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {{ $activity->description }}
-                                <span class="badge badge-primary badge-pill">
-                                    {{ $activity->created_at->diffForHumans() }}
-                                </span>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
             </div>
         </div>
     </div>

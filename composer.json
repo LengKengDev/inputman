@@ -18,6 +18,7 @@
         "prettus/l5-repository": "^2.6",
         "robclancy/presenter": "^1.4",
         "sofa/eloquence": "^5.6",
+        "spatie/laravel-activitylog": "^3.1",
         "spatie/laravel-permission": "^2.28",
         "themsaid/laravel-mail-preview": "^2.0"
     },
