@@ -27,7 +27,7 @@
                                 <div class="row">
                                     <div class="form-group col-9">
                                         <label for="description">Type:</label>
-                                        {{ Form::select('question_type_id', \App\Entities\QuestionType::all(['id', 'name'])->pluck('name', 'id')->toArray(), $question->question_type_id, ['placeholder' => 'Pick a type...', 'class' => 'form-control form-control-alternative', 'multiple' => true]) }}
+                                        {{ Form::select('question_types[]', \App\Entities\QuestionType::all(['id', 'name'])->pluck('name', 'id')->toArray(), $question->questionTypes->pluck('id'), ['placeholder' => 'Pick a type...', 'class' => 'form-control form-control-alternative', 'multiple' => true]) }}
                                     </div>
                                     <div class="form-group col-3">
                                         <label for="description">Level:</label>

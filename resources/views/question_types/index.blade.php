@@ -38,8 +38,8 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->updated_at->diffForHumans() }}</td>
                                     <td>
-                                        {{ link_to_route('web.question_types.edit', 'Edit', $item, ['class' => 'btn btn-primary']) }}
-                                        {{ link_to_route('web.question_types.destroy', 'Delete', $item, ['class' => 'btn btn-danger btn-user-destroy', 'data' => $item->id]) }}
+                                        {{ link_to_route('web.question_types.edit', 'Edit', $item, ['class' => 'btn btn-primary btn-sm']) }}
+                                        {{ link_to_route('web.question_types.destroy', 'Delete', $item, ['class' => 'btn btn-danger btn-user-destroy btn-sm', 'data' => $item->id]) }}
                                         {!! Form::open(['route' => ['web.question_types.destroy', $item->id], 'method' => 'DELETE', 'class' => "hidden destroy-{$item->id}"]) !!}
                                         {!! Form::close() !!}
                                     </td>

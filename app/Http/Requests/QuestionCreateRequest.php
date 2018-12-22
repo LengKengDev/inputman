@@ -24,7 +24,7 @@ class QuestionCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'question_types' => 'required|array|min:1',
         ];
     }
 }

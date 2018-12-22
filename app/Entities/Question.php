@@ -40,9 +40,9 @@ class Question extends Model implements Transformable
         return $this->belongsTo(Level::class)->withTrashed();
     }
 
-    public function questionType()
+    public function questionTypes()
     {
-        return $this->belongsTo(QuestionType::class)->withTrashed();
+        return $this->belongsToMany(QuestionType::class, 'questions_types')->withTrashed();
     }
 
     public function getDescriptionForEvent(string $eventName): string

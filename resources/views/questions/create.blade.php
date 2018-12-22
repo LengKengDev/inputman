@@ -27,7 +27,7 @@
                                 <div class="row">
                                     <div class="form-group col-9">
                                         <label for="description">Type:</label>
-                                        {{ Form::select('question_type_id', \App\Entities\QuestionType::all(['id', 'name'])->pluck('name', 'id')->toArray(), null, ['placeholder' => 'Pick a type...', 'class' => 'form-control form-control-alternative']) }}
+                                        {{ Form::select('question_types[]', \App\Entities\QuestionType::all(['id', 'name'])->pluck('name', 'id')->toArray(), null, ['placeholder' => 'Pick a type...', 'class' => 'form-control form-control-alternative', 'multiple' => true]) }}
                                     </div>
                                     <div class="form-group col-3">
                                         <label for="description">Level:</label>
@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="title">Question:</label>
-                                    <textarea class="form-control form-control-alternative" rows="3" placeholder="Write a large text here ..." name="title" required></textarea>
+                                    <textarea class="form-control form-control-alternative" rows="3" placeholder="Write a large text here ..." name="title" required>{{old('title')}}</textarea>
                                 </div>
                                 <label for="options">Options:</label>
                                 <div class="input-group input-group-alternative">

@@ -58,9 +58,9 @@
                                     </td>
                                     <td>{{ $item->updated_at->diffForHumans() }}</td>
                                     <td>
-                                        {{ link_to_route('web.users.show', 'View', $item, ['class' => 'btn btn-primary']) }}
+                                        {{ link_to_route('web.users.show', 'View', $item, ['class' => 'btn btn-primary btn-sm']) }}
                                         @if(!$item->hasRole('admin'))
-                                            {{ link_to_route('web.users.destroy', 'Delete', $item, ['class' => 'btn btn-danger btn-user-destroy', 'data' => $item->id]) }}
+                                            {{ link_to_route('web.users.destroy', 'Delete', $item, ['class' => 'btn btn-danger btn-user-destroy btn-sm', 'data' => $item->id]) }}
                                             {!! Form::open(['route' => ['web.users.destroy', $item->id], 'method' => 'DELETE', 'class' => "hidden destroy-{$item->id}"]) !!}
                                             {!! Form::close() !!}
                                         @endif
