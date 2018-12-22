@@ -15,7 +15,16 @@ Auth::routes();
 
 Route::namespace('Web')->name('web.')->middleware(['auth'])->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
-    Route::resource('users', 'UsersController');
-    Route::resource('question_types', 'QuestionTypesController');
-    Route::resource('questions', 'QuestionsController', ['except' => ['show']]);
+    Route::resource('users', 'UsersController')->except([
+        'edit', 'update'
+    ]);
+    Route::resource('levels', 'LevelsController')->except([
+        'show', 'create'
+    ]);
+    Route::resource('question_types', 'QuestionTypesController')->except([
+        'show',
+    ]);
+    Route::resource('questions', 'QuestionsController', ['except' => ['show']])->except([
+        'show'
+    ]);;
 });

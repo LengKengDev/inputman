@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(LevelsTableSeeder::class);
         if(env('APP_ENV') != 'production') {
             $this->call(QuestionTypesTableSeeder::class);
             $this->call(QuestionsTableSeeder::class);

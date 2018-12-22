@@ -54,7 +54,7 @@
                                     <td>{{ str_limit($item->title, 80) }}</td>
                                     <td><span class="badge badge-primary">{{ $item->questionType->name }}</span></td>
                                     <td>
-                                        <span class="badge badge-info">{{ $item->level }}</span>
+                                        <span class="badge badge-info">{{ $item->level->name }}</span>
                                     </td>
                                     <td>{{ $item->updated_at->diffForHumans() }}</td>
                                     <td>

@@ -100,6 +100,6 @@ class QuestionTypesController extends Controller
     public function destroy(QuestionType $questionType)
     {
         $this->repository->delete($questionType->id);
-        return back();
+        return back()->with('message', 'Question type deleted.');
     }
 }

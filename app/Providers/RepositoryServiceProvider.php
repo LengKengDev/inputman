@@ -35,6 +35,7 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\QuestionRepository::class,
             \App\Repositories\QuestionRepositoryEloquent::class
         );
+        $this->app->bind(\App\Repositories\LevelRepository::class, \App\Repositories\LevelRepositoryEloquent::class);
         //:end-bindings:
     }
 }
