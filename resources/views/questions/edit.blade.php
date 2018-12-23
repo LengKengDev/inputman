@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('script')
+    <script src="{{ mix('js/pages/questions.js') }}"></script>
+    <script>
+      window.question.editor();
+    </script>
+@endsection
 @section('content-header')
     <div class="row">
         <div class="col">
@@ -27,16 +33,16 @@
                                 <div class="row">
                                     <div class="form-group col-9">
                                         <label for="description">Type:</label>
-                                        {{ Form::select('question_types[]', \App\Entities\QuestionType::all(['id', 'name'])->pluck('name', 'id')->toArray(), $question->questionTypes->pluck('id'), ['placeholder' => 'Pick a type...', 'class' => 'form-control form-control-alternative', 'multiple' => true]) }}
+                                        {{ Form::select('question_types[]', \App\Entities\QuestionType::all(['id', 'name'])->pluck('name', 'id')->toArray(), $question->questionTypes->pluck('id'), ['placeholder' => 'Pick a type...', 'class' => 'form-control form-control-alternative', 'multiple' => true, 'required' => true]) }}
                                     </div>
                                     <div class="form-group col-3">
                                         <label for="description">Level:</label>
-                                        {{ Form::select('level_id', \App\Entities\Level::all(['id', 'name'])->pluck('name', 'id')->toArray(), $question->level->id, ['placeholder' => 'Pick a level...', 'class' => 'form-control form-control-alternative']) }}
+                                        {{ Form::select('level_id', \App\Entities\Level::all(['id', 'name'])->pluck('name', 'id')->toArray(), $question->level->id, ['placeholder' => 'Pick a level...', 'class' => 'form-control form-control-alternative', 'required' => true]) }}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="title">Question:</label>
-                                    <textarea class="form-control form-control-alternative" rows="3" placeholder="Write a large text here ..." name="title" required>{{ $question->title }}</textarea>
+                                    <textarea id="editor" class="form-control form-control-alternative" rows="3" placeholder="Write a large text here ..." name="title" required>{{ $question->title }}</textarea>
                                 </div>
                                 <label for="options">Options:</label>
                                 @foreach($question->answers as $index => $option)
@@ -74,5 +80,6 @@
             </div>
         </div>
     </div>
+    @include('questions.toolbar')
 @endsection
 

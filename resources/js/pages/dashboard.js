@@ -2,6 +2,7 @@
 
 class Dashboard {
   index() {
+    var _$ = window.$;
     var mode = 'light';//(themeMode) ? themeMode : 'light';
     var fonts = {
       base: 'Open Sans'
@@ -82,19 +83,19 @@ class Dashboard {
               custom: function (model) {
 
                 // Get tooltip
-                var $tooltip = $('#chart-tooltip');
+                var _$tooltip = _$('#chart-tooltip');
 
                 // Create tooltip on first render
-                if (!$tooltip.length) {
-                  $tooltip = $('<div id="chart-tooltip" class="popover bs-popover-top" role="tooltip"></div>');
+                if (!_$tooltip.length) {
+                  _$tooltip = _$('<div id="chart-tooltip" class="popover bs-popover-top" role="tooltip"></div>');
 
                   // Append to body
-                  $('body').append($tooltip);
+                  _$('body').append(_$tooltip);
                 }
 
                 // Hide if no tooltip
                 if (model.opacity === 0) {
-                  $tooltip.css('display', 'none');
+                  _$tooltip.css('display', 'none');
                   return;
                 }
 
@@ -125,26 +126,26 @@ class Dashboard {
                     html += '<div class="popover-body d-flex align-items-center ' + align + '">' + indicator + body + '</div>';
                   });
 
-                  $tooltip.html(html);
+                  _$tooltip.html(html);
                 }
 
                 // Get tooltip position
-                var $canvas = $(this._chart.canvas);
+                var _$canvas = _$(this._chart.canvas);
 
-                var canvasWidth = $canvas.outerWidth();
-                var canvasHeight = $canvas.outerHeight();
+                var canvasWidth = _$canvas.outerWidth();
+                var canvasHeight = _$canvas.outerHeight();
 
-                var canvasTop = $canvas.offset().top;
-                var canvasLeft = $canvas.offset().left;
+                var canvasTop = _$canvas.offset().top;
+                var canvasLeft = _$canvas.offset().left;
 
-                var tooltipWidth = $tooltip.outerWidth();
-                var tooltipHeight = $tooltip.outerHeight();
+                var tooltipWidth = _$tooltip.outerWidth();
+                var tooltipHeight = _$tooltip.outerHeight();
 
                 var top = canvasTop + model.caretY - tooltipHeight - 16;
                 var left = canvasLeft + model.caretX - tooltipWidth / 2;
 
                 // Display tooltip
-                $tooltip.css({
+                _$tooltip.css({
                   'top': top + 'px',
                   'left': left + 'px',
                   'display': 'block',
@@ -286,40 +287,40 @@ class Dashboard {
     // Toggle options
     function toggleOptions(elem) {
       var options = elem.data('add');
-      var $target = $(elem.data('target'));
-      var $chart = $target.data('chart');
+      var _$target = _$(elem.data('target'));
+      var _$chart = _$target.data('chart');
 
       if (elem.is(':checked')) {
 
         // Add options
-        pushOptions($chart, options);
+        pushOptions(_$chart, options);
 
         // Update chart
-        $chart.update();
+        _$chart.update();
       } else {
 
         // Remove options
-        popOptions($chart, options);
+        popOptions(_$chart, options);
 
         // Update chart
-        $chart.update();
+        _$chart.update();
       }
     }
 
     // Update options
     function updateOptions(elem) {
       var options = elem.data('update');
-      var $target = $(elem.data('target'));
-      var $chart = $target.data('chart');
+      var _$target = _$(elem.data('target'));
+      var _$chart = _$target.data('chart');
 
       // Parse options
-      parseOptions($chart, options);
+      parseOptions(_$chart, options);
 
       // Toggle ticks
-      toggleTicks(elem, $chart);
+      toggleTicks(elem, _$chart);
 
       // Update chart
-      $chart.update();
+      _$chart.update();
     }
 
     parseOptions(Chart, chartOptions());
@@ -328,14 +329,14 @@ class Dashboard {
 
       // Variables
 
-      var $chart = $('#chart-sales');
+      var _$chart = _$('#chart-sales');
 
 
       // Methods
 
-      function init($chart) {
+      function init(_$chart) {
 
-        var salesChart = new Chart($chart, {
+        var salesChart = new Chart(_$chart, {
           type: 'line',
           options: {
             scales: {
@@ -371,25 +372,25 @@ class Dashboard {
             }
           },
           data: {
-            labels: JSON.parse($('.database').attr('time')),
+            labels: JSON.parse(_$('.database').attr('time')),
             datasets: [{
               label: 'Performance',
-              data: JSON.parse($('.database').attr('data'))
+              data: JSON.parse(_$('.database').attr('data'))
             }]
           }
         });
 
         // Save to jQuery object
 
-        $chart.data('chart', salesChart);
+        _$chart.data('chart', salesChart);
 
       };
 
 
       // Events
 
-      if ($chart.length) {
-        init($chart);
+      if (_$chart.length) {
+        init(_$chart);
       }
 
     })();

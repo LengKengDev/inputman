@@ -12,7 +12,8 @@ try {
   window.laroute = require('./libraries/laroute');
   require('bootstrap');
   require('chart.js/dist/Chart');
-  require('./libraries/char.ext')
+  require('./libraries/char.ext');
+  require('froala-editor/js/froala_editor.pkgd.min')
 } catch (e) {
   //
 }
