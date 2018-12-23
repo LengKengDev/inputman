@@ -1,3 +1,20 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
 
 @import "argon";
+@import "~froala-editor/css/froala_editor.pkgd.css";
+@import "~froala-editor/css/froala_style.css";
+
+a[href='https://www.froala.com/wysiwyg-editor?k=u'] {
+  display: none!important;
+}
+
+.fr-inline {
+  padding: 10px!important;
+  border-radius: 0.375rem!important;
+  box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02)!important;
+  font-size: 0.875rem!important;
+  font-family: inherit !important;
+  font-weight: 400!important;
+  color: #8898aa!important;
+  line-height: 1.5rem!important;
+}

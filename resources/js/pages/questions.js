@@ -110,6 +110,15 @@ class Question {
       </div>
       `;
     }
+    this.editor();
+  }
+
+  editor() {
+    var _$ = window.$;
+    window.$('#editor').froalaEditor({
+      toolbarInline: true,
+      toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough']
+    });
   }
 }
 
