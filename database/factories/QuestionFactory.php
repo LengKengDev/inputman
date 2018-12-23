@@ -17,6 +17,7 @@ $factory->define(App\Entities\Question::class, function (Faker $faker) {
     return [
         'title' => $faker->paragraphs(3, true),
         'level_id' => $faker->numberBetween(1, 6),
+        'user_id' => $faker->numberBetween(1, 10),
         'answers' =>[
             ['content' => $faker->realText(50), 'is_correct' => true],
             ['content' => $faker->realText(50), 'is_correct' => false],

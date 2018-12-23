@@ -18,7 +18,12 @@ class QuestionRepositoryEloquent extends BaseRepository implements QuestionRepos
     /**
      * @var array
      */
-    protected $fieldSearchable = ['title' => 'like', 'questionTypes.name' => 'like', 'level.name' => 'like'];
+    protected $fieldSearchable = [
+        'title' => 'like',
+        'questionTypes.name' => 'like',
+        'level.name' => 'like',
+        'kind' => 'like'
+    ];
 
     /**
      * Specify Model class name

@@ -11,6 +11,8 @@ try {
   window.$ = window.jQuery = require('jquery');
   window.laroute = require('./libraries/laroute');
   require('bootstrap');
+  require('chart.js/dist/Chart');
+  require('./libraries/char.ext')
 } catch (e) {
   //
 }

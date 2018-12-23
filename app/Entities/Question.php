@@ -22,7 +22,7 @@ class Question extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = ['title', 'answers', 'question_type_id', 'level_id'];
+    protected $fillable = ['title', 'answers', 'question_type_id', 'level_id', 'kind'];
 
     protected static $recordEvents = ['created', 'updated'];
 

@@ -81,8 +81,11 @@ class UsersController extends Controller
     {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
-            $user = $this->repository->create($request->all());
+            $user = $this->repository->create([
+                'email' => $request->input('email'),
+                'name' => $request->input('name'),
+                'password' => bcrypt($request->input('password')),
+            ]);
 
             $response = [
                 'message' => 'User created.',
