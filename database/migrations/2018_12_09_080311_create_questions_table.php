@@ -17,6 +17,8 @@ class CreateQuestionsTable extends Migration
 	{
 		Schema::create('questions', function(Blueprint $table) {
             $table->increments('id');
+            $table->enum('kind', ['normal', 'group', 'others'])->default('normal');
+            $table->integer('user_id')->unsigned()->nullable();
             $table->integer('level_id')->unsigned();
             $table->text('title');
             $table->text('answers');

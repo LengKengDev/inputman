@@ -19,7 +19,15 @@
                 <div class="card-header bg-transparent">
                     <div class="row align-items-center">
                         <div class="col">
-                            <a href="{{ route('web.questions.create') }}" class="btn btn-outline-primary"><i class="fa fa-fw fa-plus"></i>Thêm mới</a>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-fw fa-plus"></i> Thêm mới
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="{{ route('web.questions.create', ['kind' => 'normal']) }}">Normal</a>
+                                    <a class="dropdown-item" href="{{ route('web.questions.create', ['kind' => 'group']) }}">Group</a>
+                                </div>
+                            </div>
                         </div>
                         <div class="col">
                             {!! Form::open(['route' => 'web.questions.index', 'method' => 'GET']) !!}
@@ -40,8 +48,9 @@
                         <thead class="thead-light">
                         <tr>
                             <th>#ID</th>
-                            <th scope="col">Title</th>
                             <th>Type</th>
+                            <th scope="col">Title</th>
+                            <th>Category</th>
                             <th>Level</th>
                             <th scope="col">Updated at</th>
                             <th scope="col">Action</th>
@@ -51,17 +60,18 @@
                             @foreach($questions as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ str_limit($item->title, 60) }}</td>
+                                    <th><span class="badge badge-primary badge-pill">{{ $item->kind }}</span></th>
+                                    <td><i class="fa fa-question-circle fa-fw" data-toggle="tooltip" data-placement="right" title="{{ $item->title }}"></i>{{ str_limit($item->title, 60) }}</td>
                                     <td>
                                         @foreach($item->questionTypes as $type)
                                             <span class="badge badge-pill badge-{{array_random(['info', 'success', 'warning', 'primary', 'danger'])}}"
                                                   data-toggle="tooltip" data-placement="top" title="{{ $type->name }}">
-                                                {{ str_limit($type->name, 10) }}
+                                                {{ str_limit($type->name, 5) }}
                                             </span>
                                         @endforeach
                                     </td>
                                     <td>
-                                        <span class="badge badge-info">{{ $item->level->name }}</span>
+                                        <span class="badge badge-info badge-pill">{{ $item->level->name }}</span>
                                     </td>
                                     <td>{{ $item->updated_at->diffForHumans() }}</td>
                                     <td>

@@ -35,4 +35,9 @@ class User extends Authenticatable implements Transformable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 }

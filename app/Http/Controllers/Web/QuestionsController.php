@@ -50,11 +50,17 @@ class QuestionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $questions = $this->repository->with(['questionTypes', 'level'])
-            ->orderBy('id', 'desc')->paginate(15);
+        $questions = [];
+        if ($request->user()->hasRole('admin')) {
+            $questions = $this->repository->with(['questionTypes', 'level'])
+                ->orderBy('id', 'desc')->paginate(15);
+        } else {
+            $questions = $request->user()->questions()->with(['questionTypes', 'level'])
+                ->orderBy('id', 'desc')->paginate(15);
+        }
 
         if (request()->wantsJson()) {
             return response()->json([
@@ -68,9 +74,13 @@ class QuestionsController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('questions.create');
+        $kind = $request->input('kind', 'normal');
+        if ($kind == 'group') {
+            return view('questions.create-group', compact('kind'));
+        }
+        return view('questions.create', compact('kind'));
     }
 
     /**
@@ -144,6 +154,9 @@ class QuestionsController extends Controller
     {
         $activities = Activity::where('subject_type', "App\Entities\Question")
             ->where('subject_id', $question->id)->orderBy('created_at', 'desc')->take(10)->get();
+        if ($question->kind == 'group') {
+            return view('questions.edit-group', compact('question', 'activities'));
+        }
         return view('questions.edit', compact('question', 'activities'));
     }
 

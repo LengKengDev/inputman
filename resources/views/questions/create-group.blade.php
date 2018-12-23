@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('script')
+    <script src="{{ mix('js/pages/questions.js') }}"></script>
+    <script>
+      window.question.group();
+    </script>
+@endsection
 @section('content-header')
     <div class="row">
         <div class="col">
@@ -45,48 +51,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="title">Question:</label>
+                                    <label for="title">Main question:</label>
                                     <textarea class="form-control form-control-alternative" rows="3" placeholder="Write a large text here ..." name="title" required>{{old('title')}}</textarea>
                                 </div>
-                                <label for="options">Options:</label>
-                                <div class="input-group input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            {{Form::hidden('answers[0][is_correct]', 0)}}
-                                            <input type="checkbox" value="1" aria-label="checkbox" name="answers[0][is_correct]">
-                                        </div>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Text input with radio button" name="answers[0][content]" required>
+                                <div class="row sub-questions">
+
                                 </div>
-                                <br>
-                                <div class="input-group input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            {{Form::hidden('answers[1][is_correct]', 0)}}
-                                            <input type="checkbox" value="1" aria-label="checkbox" name="answers[1][is_correct]">
-                                        </div>
+                                <div class="row">
+                                    <div class="col-sm-12 text-center">
+                                        <a href="#" class="btn btn-outline-danger btn-sm btn-add-sub-question"><i class="fa fa-fw fa-plus"></i> Add sub-question</a>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Text input with radio button" name="answers[1][content]" required>
-                                </div>
-                                <br>
-                                <div class="input-group input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            {{Form::hidden('answers[2][is_correct]', 0)}}
-                                            <input type="checkbox" value="1" aria-label="checkbox" name="answers[2][is_correct]">
-                                        </div>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Text input with radio button" name="answers[2][content]" required>
-                                </div>
-                                <br>
-                                <div class="input-group input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            {{Form::hidden('answers[3][is_correct]', 0)}}
-                                            <input type="checkbox" value="1" aria-label="checkbox" name="answers[3][is_correct]">
-                                        </div>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Text input with radio button" name="answers[3][content]" required>
                                 </div>
                                 <hr>
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-save"></i> Create</button>
