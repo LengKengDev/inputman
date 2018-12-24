@@ -13,7 +13,7 @@ try {
   require('bootstrap');
   require('chart.js/dist/Chart');
   require('./libraries/char.ext');
-  require('froala-editor/js/froala_editor.pkgd.min')
+  require('froala-editor/js/froala_editor.pkgd.min');
 } catch (e) {
   //
 }

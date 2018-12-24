@@ -61,7 +61,7 @@
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <th><span class="badge badge-primary badge-pill">{{ $item->kind }}</span></th>
-                                    <td><i class="fa fa-question-circle fa-fw" data-toggle="tooltip" data-placement="right" title="{{ $item->title }}"></i>{{ str_limit($item->title, 60) }}</td>
+                                    <td><i class="fa fa-question-circle fa-fw" data-toggle="tooltip" data-placement="right" title="{{ strip_tags($item->title) }}"></i>{{ str_limit(strip_tags($item->title), 60) }}</td>
                                     <td>
                                         @foreach($item->questionTypes as $type)
                                             <span class="badge badge-pill badge-{{array_random(['info', 'success', 'warning', 'primary', 'danger'])}}"
