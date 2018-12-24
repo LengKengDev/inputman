@@ -23,7 +23,7 @@ class Question {
       e.preventDefault();
       var r = confirm('You really want to remove this data?');
       if (r == true) {
-        $(this).parent().remove();
+        _$(this).parent().remove();
       }
     });
 
@@ -114,9 +114,9 @@ class Question {
   }
 
   editor() {
-    var _$ = window.$;
     window.$('#editor').froalaEditor({
       toolbarInline: true,
+      charCounterCount: false,
       toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough']
     });
   }

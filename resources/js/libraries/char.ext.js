@@ -2,7 +2,7 @@
 // Chart extension for making the bars rounded
 // Code from: https://codepen.io/jedtrow/full/ygRYgo
 //
-
+/*global Chart*/
 Chart.elements.Rectangle.prototype.draw = function() {
 
   var ctx = this._chart.ctx;
@@ -89,19 +89,19 @@ Chart.elements.Rectangle.prototype.draw = function() {
 
   for (var i = 1; i < 4; i++) {
     corner = cornerAt(i);
-    nextCornerId = i + 1;
+    let nextCornerId = i + 1;
     if (nextCornerId == 4) {
-      nextCornerId = 0
+      nextCornerId = 0;
     }
 
-    nextCorner = cornerAt(nextCornerId);
+    cornerAt(nextCornerId);
 
-    width = corners[2][0] - corners[1][0];
-    height = corners[0][1] - corners[1][1];
-    x = corners[1][0];
-    y = corners[1][1];
+    var width = corners[2][0] - corners[1][0];
+    var height = corners[0][1] - corners[1][1];
+    var x = corners[1][0];
+    var y = corners[1][1];
 
-    var radius = cornerRadius;
+    radius = cornerRadius;
 
     // Fix radius being too large
     if (radius > height / 2) {

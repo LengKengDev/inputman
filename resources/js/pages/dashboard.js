@@ -1,3 +1,4 @@
+/*global Chart*/
 'use strict';
 
 class Dashboard {
@@ -118,9 +119,7 @@ class Dashboard {
                   });
 
                   // Add body
-                  bodyLines.forEach(function (body, i) {
-                    var colors = model.labelColors[i];
-                    var styles = 'background-color: ' + colors.backgroundColor;
+                  bodyLines.forEach(function (body) {
                     var indicator = '<span class="badge badge-dot"><i class="bg-primary"></i></span>';
                     var align = (bodyLines.length > 1) ? 'justify-content-left' : 'justify-content-center';
                     html += '<div class="popover-body d-flex align-items-center ' + align + '">' + indicator + body + '</div>';
@@ -131,9 +130,6 @@ class Dashboard {
 
                 // Get tooltip position
                 var _$canvas = _$(this._chart.canvas);
-
-                var canvasWidth = _$canvas.outerWidth();
-                var canvasHeight = _$canvas.outerHeight();
 
                 var canvasTop = _$canvas.offset().top;
                 var canvasLeft = _$canvas.offset().left;
@@ -203,7 +199,7 @@ class Dashboard {
             }
           }
         }
-      }
+      };
 
       // yAxes
       Chart.scaleService.updateScaleDefaults('linear', {
@@ -224,7 +220,7 @@ class Dashboard {
           padding: 10,
           callback: function (value) {
             if (!(value % 10)) {
-              return value
+              return value;
             }
           }
         }
@@ -258,74 +254,9 @@ class Dashboard {
       }
     }
 
-    // Push options
-    function pushOptions(parent, options) {
-      for (var item in options) {
-        if (Array.isArray(options[item])) {
-          options[item].forEach(function (data) {
-            parent[item].push(data);
-          });
-        } else {
-          pushOptions(parent[item], options[item]);
-        }
-      }
-    }
-
-    // Pop options
-    function popOptions(parent, options) {
-      for (var item in options) {
-        if (Array.isArray(options[item])) {
-          options[item].forEach(function (data) {
-            parent[item].pop();
-          });
-        } else {
-          popOptions(parent[item], options[item]);
-        }
-      }
-    }
-
-    // Toggle options
-    function toggleOptions(elem) {
-      var options = elem.data('add');
-      var _$target = _$(elem.data('target'));
-      var _$chart = _$target.data('chart');
-
-      if (elem.is(':checked')) {
-
-        // Add options
-        pushOptions(_$chart, options);
-
-        // Update chart
-        _$chart.update();
-      } else {
-
-        // Remove options
-        popOptions(_$chart, options);
-
-        // Update chart
-        _$chart.update();
-      }
-    }
-
-    // Update options
-    function updateOptions(elem) {
-      var options = elem.data('update');
-      var _$target = _$(elem.data('target'));
-      var _$chart = _$target.data('chart');
-
-      // Parse options
-      parseOptions(_$chart, options);
-
-      // Toggle ticks
-      toggleTicks(elem, _$chart);
-
-      // Update chart
-      _$chart.update();
-    }
-
     parseOptions(Chart, chartOptions());
 
-    var SalesChart = (function () {
+    (function () {
 
       // Variables
 
@@ -384,7 +315,7 @@ class Dashboard {
 
         _$chart.data('chart', salesChart);
 
-      };
+      }
 
 
       // Events

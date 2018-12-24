@@ -41,6 +41,7 @@
                         <div class="col-sm-6 offset-sm-3">
                             {!! Form::open(['route' => 'web.questions.store']) !!}
                                 <input type="hidden" name="kind" value="{{ $kind }}">
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                 <div class="row">
                                     <div class="form-group col-9">
                                         <label for="description">Type:</label>
