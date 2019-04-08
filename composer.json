@@ -19,6 +19,7 @@
         "robclancy/presenter": "^1.4",
         "sofa/eloquence": "^5.6",
         "spatie/laravel-activitylog": "^3.1",
+        "spatie/laravel-backup": "^5.12",
         "spatie/laravel-permission": "^2.28",
         "themsaid/laravel-mail-preview": "^2.0"
     },
