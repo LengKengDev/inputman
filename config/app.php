@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Lord\Laroute\LarouteServiceProvider::class,
+        App\Providers\BackupServiceProvider::class,
 
     ],
 
